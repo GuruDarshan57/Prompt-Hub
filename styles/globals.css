@@ -25,5 +25,18 @@ body{
 }
 
 nav{
-  @apply absolute top-2
+  @apply absolute top-0
+}
+
+.button_red{
+  @apply border-2 border-black rounded-full p-1 px-3 bg-red-300 hover:bg-red-50
+}
+
+.glassmorphism{
+  background-color: #ef977f4b;
+  backdrop-filter: blur(5px);
+}
+.glassmorphism_nav{
+  background-color: #efadad3e;
+  backdrop-filter: blur(20px);
 }
