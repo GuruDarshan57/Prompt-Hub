@@ -11,16 +11,15 @@ const RootLayout = ({ children }) => {
     return (
         <html>
             <link rel="shortcut icon" href="assets/images/logo.png" />
+
             <body>
                 <Provider>
-                    <div className="main">
-                        <div className="gradient"></div>
-                    </div>
                     <main className="app">
                         <Nav />
                         {children}
                     </main>
                 </Provider>
+                <script src="https://kit.fontawesome.com/3874570f12.js" crossOrigin="anonymous"></script>
             </body>
         </html>
     )
