@@ -1,3 +1,4 @@
+import Footer from '@components/Footer'
 import Nav from '@components/Nav'
 import Provider from '@components/Provider'
 import '@styles/globals.css'
@@ -17,6 +18,7 @@ const RootLayout = ({ children }) => {
                     <main className="app">
                         <Nav />
                         {children}
+                        <Footer />
                     </main>
                 </Provider>
                 <script src="https://kit.fontawesome.com/3874570f12.js" crossOrigin="anonymous"></script>

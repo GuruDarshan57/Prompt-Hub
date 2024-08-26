@@ -19,7 +19,7 @@ const Nav = () => {
         GetProviders()
     }, [])
     return (
-        <nav className="flex px-6 sm:px-20 justify-center sm:justify-between w-full p-3 mb-20 items-center glassmorphism_nav">
+        <nav className="flex px-6 sm:px-20 justify-center sm:justify-between w-full p-3 mb-20 items-center">
             <Link href={"/"} className='hidden sm:flex items-center gap-[10px]'>
                 <Image src={"/assets/images/logo.png"} width={"40"} height={"40"} alt='Prompt Hub'></Image>
                 <p className='hidden sm:inline text-xl font-bold font-pacifico tracking-[4px'>Prompt Hub</p>
@@ -61,7 +61,7 @@ const Nav = () => {
                     {toggleNav ? "" : <i className="fa-solid fa-bars text-2xl place-content-center" onClick={() => setToggleNav((e) => !e)}></i>}
                     {toggleNav ? <i className="fa-solid fa-xmark text-2xl place-content-center" onClick={() => setToggleNav((e) => !e)}></i> : ""}
                 </div>
-                {toggleNav ? session?.user ? <div className='flex flex-col w-full  gap-3 font-bold absolute top-14 z-10 text-center px-6 py-6 rounded-3xl glassmorphism'>
+                {toggleNav ? session?.user ? <div className='flex flex-col w-full  gap-3 absolute top-14 z-10 text-center px-6 py-6 rounded-3xl glassmorphism'>
                     <Link href={"/"} className='button_red'>Home</Link>
                     <Link href={"/create-prompt"} className='button_red '>Create Prompt</Link>
                     <Link href={"/profile"} className='button_red'>Profile</Link>
