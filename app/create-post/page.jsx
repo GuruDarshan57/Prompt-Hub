@@ -10,17 +10,23 @@ const CreatePrompt = () => {
     const router = useRouter()
     const { data: session } = useSession()
     const [submitting, setSubmitting] = useState(false);
-    const [post, setPost] = useState({ prompt: "", tag: "", uid: session?.user?.id });
+    const [post, setPost] = useState({ prompt: "", tag: "", uid: session?.user.id });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(post)
-            setSubmitting(true)
-            const res = await axios.post("/api/prompt/create", post)
-            if (res.status == 200) {
+            if (post.prompt && post.tag && post.uid) {
+                setSubmitting(true)
+                const res = await axios.post("/api/prompt/create", post)
+                if (res.status == 200) {
 
+                }
             }
+            else {
+                console.log("no")
+            }
+
+
 
 
         } catch (err) {
