@@ -5,30 +5,27 @@ import Form from '@components/Form'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
+import { toast } from 'react-toastify'
 
 const CreatePrompt = () => {
     const router = useRouter()
     const { data: session } = useSession()
     const [submitting, setSubmitting] = useState(false);
-    const [post, setPost] = useState({ prompt: "", tag: "", uid: session?.user.id });
+    const [post, setPost] = useState({ prompt: "", tag: "" });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (post.prompt && post.tag && post.uid) {
+            if (post.prompt && post.tag) {
                 setSubmitting(true)
-                const res = await axios.post("/api/prompt/create", post)
+                const res = await axios.post("/api/prompt/create", { ...post, uid: session?.user.id })
                 if (res.status == 200) {
-
+                    toast.success("Added Successfully.")
                 }
             }
             else {
-                console.log("no")
+                toast.warning("All fields Mandotory.")
             }
-
-
-
-
         } catch (err) {
             console.log(err.message)
         }
