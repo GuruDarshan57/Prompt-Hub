@@ -7,7 +7,7 @@ import { signIn, signOut, useSession, getProviders } from 'next-auth/react'
 
 const Nav = () => {
     const { data: session } = useSession()
-    const isLogedIn = true
+
     const [providers, setProviders] = useState(null)
     const [toggleNav, setToggleNav] = useState(false)
 
@@ -29,7 +29,7 @@ const Nav = () => {
             <div className="hidden sm:flex gap-3 items-center">
                 {session?.user ?
                     <>
-                        <Link href={"/create-prompt"} className='button_red'>Create Prompt</Link>
+                        <Link href={"/create-post"} className='button_red'>Create New Post</Link>
                         <button onClick={() => { signOut() }} className='button_red'>SignOut</button>
                         <Link href={"/profile"}><Image src={session.user.image} height={"38"} width={"38"} alt="profile_img" className='rounded-[12px] border-[2px] border-black' /></Link>
                     </>
@@ -63,7 +63,7 @@ const Nav = () => {
                 </div>
                 {toggleNav ? session?.user ? <div className='flex flex-col w-full  gap-3 absolute top-14 z-10 text-center px-6 py-6 rounded-3xl glassmorphism'>
                     <Link href={"/"} className='button_red'>Home</Link>
-                    <Link href={"/create-prompt"} className='button_red '>Create Prompt</Link>
+                    <Link href={"/create-post"} className='button_red '>Create New Post</Link>
                     <Link href={"/profile"} className='button_red'>Profile</Link>
                     <button onClick={() => { signOut() }} className='button_red'>SignOut</button>
                 </div> : providers &&
