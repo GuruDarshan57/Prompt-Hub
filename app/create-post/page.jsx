@@ -1,16 +1,34 @@
 'use client'
 
+import axios from 'axios'
 import Form from '@components/Form'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 
 const CreatePrompt = () => {
     const router = useRouter()
+    const { data: session } = useSession()
     const [submitting, setSubmitting] = useState(false);
-    const [post, setPost] = useState({ post: "", tag: "" });
+    const [post, setPost] = useState({ prompt: "", tag: "", uid: session?.user?.id });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        try {
+            console.log(post)
+            setSubmitting(true)
+            const res = await axios.post("/api/prompt/create", post)
+            if (res.status == 200) {
+
+            }
+
+
+        } catch (err) {
+            console.log(err.message)
+        }
+        finally {
+            setSubmitting(false)
+        }
     }
     return (
         <div className='w-full sm:px-10 flex place-content-center'>
