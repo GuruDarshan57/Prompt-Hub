@@ -27,7 +27,7 @@ const RootLayout = ({ children }) => {
                 <script src="https://kit.fontawesome.com/3874570f12.js" crossOrigin="anonymous"></script>
                 <ToastContainer
                     position="top-right"
-                    autoClose={5000}
+                    autoClose={4000}
                     hideProgressBar={false}
                     newestOnTop={false}
                     closeOnClick

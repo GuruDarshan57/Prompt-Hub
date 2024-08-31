@@ -13,6 +13,10 @@ const CreatePrompt = () => {
     const [submitting, setSubmitting] = useState(false);
     const [post, setPost] = useState({ prompt: "", tag: "" });
 
+    useEffect(() => {
+        session?.user ? "" : router.push('/');
+    })
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -21,6 +25,9 @@ const CreatePrompt = () => {
                 const res = await axios.post("/api/prompt/create", { ...post, uid: session?.user.id })
                 if (res.status == 200) {
                     toast.success("Added Successfully.")
+                }
+                else {
+                    toast.warning(res.data);
                 }
             }
             else {

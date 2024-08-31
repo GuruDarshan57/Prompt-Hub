@@ -4,7 +4,7 @@ import Link from 'next/link'
 const Footer = () => {
     return (
         <div className='flex w-screen place-content-center footer absolute bottom-3'>
-            <div className='flex flex-col sm:flex-row w-full px-6 sm:px-24 justify-between'>
+            <div className='flex flex-col sm:flex-row w-full px-6 md:px-10 lg:px-24 justify-between'>
                 <Link href={'/'} className='flex font-pacifico place-content-center'>
                     Prompt Hub
                 </Link>

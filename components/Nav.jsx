@@ -19,7 +19,7 @@ const Nav = () => {
         GetProviders()
     }, [])
     return (
-        <nav className="flex px-6 sm:px-20 justify-center sm:justify-between w-full p-3 mb-20 items-center">
+        <nav className="flex px-6 md:px-10 lg:px-20 justify-center sm:justify-between w-full p-3 mb-20 items-center border-b-2 border-slate-800">
             <Link href={"/"} className='hidden sm:flex items-center gap-[10px]'>
                 <Image src={"/assets/images/logo.png"} width={"40"} height={"40"} alt='Prompt Hub'></Image>
                 <p className='hidden sm:inline text-xl font-bold font-pacifico tracking-[4px'>Prompt Hub</p>
