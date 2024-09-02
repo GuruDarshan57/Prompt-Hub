@@ -33,6 +33,10 @@ nav{
   @apply border-2 border-black rounded-full p-1 px-3 bg-red-300 hover:bg-red-50
 }
 
+.copy_button{
+  @apply text-[11px] p-[9px] border-2 rounded-full relative -right-2 -top-1 cursor-pointer place-content-center 
+}
+
 .glassmorphism{
   background-color: #ffffff1f;
   backdrop-filter: blur(5px);

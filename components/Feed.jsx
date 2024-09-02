@@ -25,7 +25,7 @@ const Feed = () => {
         const response = await axios.get("/api/prompt");
         const data = response.data;
 
-        setAllPosts(data);
+        setAllPosts(data.slice(0, 9));
     };
 
 

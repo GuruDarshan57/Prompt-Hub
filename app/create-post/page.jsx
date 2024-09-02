@@ -25,6 +25,7 @@ const CreatePrompt = () => {
                 const res = await axios.post("/api/prompt/create", { ...post, uid: session?.user.id })
                 if (res.status == 200) {
                     toast.success("Added Successfully.")
+                    setPost({ prompt: "", tag: "" })
                 }
                 else {
                     toast.warning(res.data);
