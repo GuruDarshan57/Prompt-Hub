@@ -7,24 +7,33 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { toast } from 'react-toastify'
 
-const CreatePrompt = () => {
+const EditPrompt = ({ params }) => {
     const router = useRouter()
     const { data: session } = useSession()
     const [submitting, setSubmitting] = useState(false);
     const [post, setPost] = useState({ prompt: "", tag: "" });
 
     useEffect(() => {
-        session?.user ? "" : router.replace('/');
+        session?.user ? fetchPost() : router.replace('/');
     })
+
+    const fetchPost = async () => {
+        try {
+            const res = await axios.get(`/api/prompt/${params.id}`)
+            res.status === 200 ? setPost({ prompt: res.data.prompt, tag: res.data.tag }) : ""
+        } catch (err) {
+            console.log(err.message)
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             if (post.prompt && post.tag) {
                 setSubmitting(true)
-                const res = await axios.post("/api/prompt/create", { ...post, uid: session?.user.id })
+                const res = await axios.patch(`/api/prompt/${params.id}`, { ...post, uid: session?.user.id })
                 if (res.status == 200) {
-                    toast.success("Added Successfully.")
+                    toast.success("Edited Successfully.")
                     setPost({ prompt: "", tag: "" })
                 }
                 else {
@@ -43,9 +52,9 @@ const CreatePrompt = () => {
     }
     return (
         <div className='w-full sm:px-10 flex place-content-center'>
-            <Form type={"Create"} post={post} setPost={setPost} submitting={submitting} handleSubmit={handleSubmit} />
+            <Form type={"Edit"} post={post} setPost={setPost} submitting={submitting} handleSubmit={handleSubmit} />
         </div>
     )
 }
 
-export default CreatePrompt
+export default EditPrompt

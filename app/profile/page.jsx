@@ -10,7 +10,8 @@ const Profile = ({ params }) => {
     const router = useRouter()
     const [posts, setPosts] = useState()
     useEffect(() => {
-        fetchData()
+        session?.user ? fetchData() : router.replace('/');
+
     }, [])
     const fetchData = async () => {
         try {
