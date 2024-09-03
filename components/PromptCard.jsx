@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { useRouter, usePathname } from 'next/navigation'
 import axios from 'axios'
-import toast from 'react-toastify'
+import { toast } from 'react-toastify'
 
 const PromptCard = ({ data }) => {
     const { data: session } = useSession()

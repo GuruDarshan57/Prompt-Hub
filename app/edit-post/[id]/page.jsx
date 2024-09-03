@@ -15,12 +15,12 @@ const EditPrompt = ({ params }) => {
 
     useEffect(() => {
         session?.user ? fetchPost() : router.replace('/');
-    })
+    }, [])
 
     const fetchPost = async () => {
         try {
             const res = await axios.get(`/api/prompt/${params.id}`)
-            res.status === 200 ? setPost({ prompt: res.data.prompt, tag: res.data.tag }) : ""
+            res.status === 200 ? setPost({ prompt: res.data.prompt, tag: res.data.tag }) : toast.warning(res.data)
         } catch (err) {
             console.log(err.message)
         }
@@ -31,10 +31,11 @@ const EditPrompt = ({ params }) => {
         try {
             if (post.prompt && post.tag) {
                 setSubmitting(true)
-                const res = await axios.patch(`/api/prompt/${params.id}`, { ...post, uid: session?.user.id })
+                console.log("hi")
+                const res = await axios.patch(`/api/prompt/${params.id}`, post)
                 if (res.status == 200) {
                     toast.success("Edited Successfully.")
-                    setPost({ prompt: "", tag: "" })
+                    console.log(post)
                 }
                 else {
                     toast.warning(res.data);

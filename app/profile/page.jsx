@@ -18,7 +18,6 @@ const Profile = ({ params }) => {
             const res = await axios.get(`/api/user/${session?.user.id}/posts`)
             if (res.status === 200) {
                 setPosts(res.data)
-                console.log(posts)
             }
         }
         catch (err) {
