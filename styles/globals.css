@@ -41,3 +41,12 @@ nav{
   background-color: #ffffff1f;
   backdrop-filter: blur(5px);
 }
+
+.logo_animation{
+  animation: logo_rotate 3s linear infinite;
+}
+@keyframes logo_rotate{
+  100%{
+    rotate: 360deg;
+  }
+}

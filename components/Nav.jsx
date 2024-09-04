@@ -21,7 +21,7 @@ const Nav = () => {
     return (
         <nav className="flex px-6 md:px-10 lg:px-20 justify-center sm:justify-between w-screen p-3 mb-20 items-center">
             <Link href={"/"} className='hidden sm:flex items-center gap-[10px]'>
-                <Image src={"/assets/images/logo.png"} width={"40"} height={"40"} alt='Prompt Hub'></Image>
+                <Image src={"/assets/images/logo.png"} width={"40"} height={"40"} alt='Prompt Hub' className='logo_animation'></Image>
                 <p className='hidden sm:inline text-xl font-bold font-pacifico tracking-[4px'>Prompt Hub</p>
             </Link>
 
