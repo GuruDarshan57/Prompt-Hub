@@ -21,7 +21,7 @@ const Feed = () => {
             const res = await axios.get("/api/prompt");
             const data = res.data;
             if (res.status === 200) {
-                setAllPosts(data.slice(0, 9));
+                setAllPosts(data);
             }
             else {
                 fetchPosts()
@@ -66,9 +66,9 @@ const Feed = () => {
     return (
         <div className='flex flex-col w-full sm:w-4/5 pt-5 justify-center items-center'>
             <form className='w-full'>
-                <input type="text" className='w-11/12 lg:w-3/5 h-10 p-1 rounded-sm outline-none px-3' placeholder='Search for a word, a tag or a username ...' value={searchText} />
+                <input type="text" className='w-11/12 lg:w-3/5 h-10 p-1 rounded-sm outline-none px-3' placeholder='Search for a word, a tag or a username ...' value={searchText} onChange={handleSearchChange} />
             </form>
-            <PromptBox data={allPosts} handleTagClick={handleTagClick} />
+            {searchText ? <PromptBox data={searchedResults} handleTagClick={handleTagClick} /> : <PromptBox data={allPosts} handleTagClick={handleSearchChange} />}
         </div>
     )
 }
