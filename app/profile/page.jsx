@@ -29,12 +29,10 @@ const Profile = ({ params }) => {
     }
     return (
         <div className="w-full flex flex-col gap-2justify-center items-center mt-32 mb-20 text-center">
-            {loader ? <>
-                <h2 className="font-bold text-4xl sm:text-6xl">My Profile</h2>
-                <p className='w-3/4 text-center mt-3'>"Creativity is intelligence having fun." – Albert Einstein</p>
-                <Loader />
-            </> :
-                <PromptBox data={posts} />}
+
+            <h2 className="font-bold text-4xl sm:text-6xl">My Profile</h2>
+            <p className='w-3/4 text-center mt-3'>"Creativity is intelligence having fun." – Albert Einstein</p>
+            {loader ? <Loader /> : <PromptBox data={posts} />}
         </div>
     )
 }

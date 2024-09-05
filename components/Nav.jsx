@@ -55,7 +55,7 @@ const Nav = () => {
 
                 <div className='flex justify-between'>
                     <Link href={"/"} className='flex items-center gap-[10px]'>
-                        <Image src={"/assets/images/logo.png"} width={"40"} height={"40"} alt='Prompt Hub'></Image>
+                        <Image src={"/assets/images/logo.png"} width={"40"} height={"40"} alt='Prompt Hub' className='logo_animation'></Image>
                         <p className='text-xl font-bold font-pacifico tracking-[4px'>Prompt Hub</p>
                     </Link>
                     {toggleNav ? "" : <i className="fa-solid fa-bars text-2xl place-content-center" onClick={() => setToggleNav((e) => !e)}></i>}
