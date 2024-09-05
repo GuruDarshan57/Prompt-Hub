@@ -8,25 +8,65 @@ import PromptBox from './PromptBox'
 const Feed = () => {
     const [allPosts, setAllPosts] = useState([]);
 
+    const [searchText, setSearchText] = useState("");
+    const [searchTimeout, setSearchTimeout] = useState(null);
+    const [searchedResults, setSearchedResults] = useState([]);
+
     useEffect(() => {
         fetchPosts()
     }, [])
 
     const fetchPosts = async () => {
-        const response = await axios.get("/api/prompt");
-        const data = response.data;
-        setAllPosts(data.slice(0, 9));
+        try {
+            const res = await axios.get("/api/prompt");
+            const data = res.data;
+            if (res.status === 200) {
+                setAllPosts(data.slice(0, 9));
+            }
+            else {
+                fetchPosts()
+            }
+        }
+        catch (err) {
+            console.log(err.message)
+        }
+    };
+
+    const filterPrompts = (searchtext) => {
+        const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
+        return allPosts.filter(
+            (item) =>
+                regex.test(item.creator.username) ||
+                regex.test(item.tag) ||
+                regex.test(item.prompt)
+        );
+    };
+
+    const handleSearchChange = (e) => {
+        clearTimeout(searchTimeout);
+        setSearchText(e.target.value);
+
+        // debounce method
+        setSearchTimeout(
+            setTimeout(() => {
+                const searchResult = filterPrompts(e.target.value);
+                setSearchedResults(searchResult);
+            }, 500)
+        );
+    };
+
+    const handleTagClick = (tagName) => {
+        setSearchText(tagName);
+
+        const searchResult = filterPrompts(tagName);
+        setSearchedResults(searchResult);
     };
 
 
-
-    const handleTagClick = () => {
-
-    }
     return (
         <div className='flex flex-col w-full sm:w-4/5 pt-5 justify-center items-center'>
             <form className='w-full'>
-                <input type="text" className='w-11/12 lg:w-3/5 h-10 p-1 rounded-sm outline-none px-3' placeholder='Search for a word, a tag or a username ...' />
+                <input type="text" className='w-11/12 lg:w-3/5 h-10 p-1 rounded-sm outline-none px-3' placeholder='Search for a word, a tag or a username ...' value={searchText} />
             </form>
             <PromptBox data={allPosts} handleTagClick={handleTagClick} />
         </div>
