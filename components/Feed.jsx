@@ -4,10 +4,11 @@ import axios from 'axios'
 import Image from 'next/image'
 import PromptCard from './PromptCard'
 import PromptBox from './PromptBox'
+import Loader from './Loader'
 
 const Feed = () => {
     const [allPosts, setAllPosts] = useState([]);
-
+    const [loader, setLoader] = useState(true)
     const [searchText, setSearchText] = useState("");
     const [searchTimeout, setSearchTimeout] = useState(null);
     const [searchedResults, setSearchedResults] = useState([]);
@@ -22,6 +23,7 @@ const Feed = () => {
             const data = res.data;
             if (res.status === 200) {
                 setAllPosts(data);
+                setLoader(false)
             }
             else {
                 fetchPosts()
@@ -67,9 +69,9 @@ const Feed = () => {
         <div className='flex flex-col w-full sm:w-4/5 pt-5 justify-center items-center'>
             <form className='w-full'>
                 <input type="text" className='w-11/12 lg:w-3/5 h-10 p-1 rounded-sm outline-none px-3' placeholder='Search for a word, a tag or a username ...' value={searchText} onChange={handleSearchChange} />
-            </form>
-            {searchText ? <PromptBox data={searchedResults} handleTagClick={handleTagClick} /> : <PromptBox data={allPosts} handleTagClick={handleSearchChange} />}
-        </div>
+            </form >
+            {loader ? <Loader /> : <PromptBox data={searchText ? searchedResults : allPosts} handleTagClick={handleTagClick} />}
+        </div >
     )
 }
 
