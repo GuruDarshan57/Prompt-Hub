@@ -57,10 +57,10 @@ const Feed = () => {
         );
     };
 
-    const handleTagClick = (tagName) => {
-        setSearchText(tagName);
-
-        const searchResult = filterPrompts(tagName);
+    const handleTagClick = (searchTag) => {
+        setSearchText(searchTag);
+        console.log(searchTag)
+        const searchResult = filterPrompts(searchTag);
         setSearchedResults(searchResult);
     };
 
