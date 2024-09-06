@@ -5,8 +5,10 @@ import Image from 'next/image'
 import PromptCard from './PromptCard'
 import PromptBox from './PromptBox'
 import Loader from './Loader'
+import { useRouter } from 'next/navigation'
 
 const Feed = () => {
+    const router = useRouter()
     const [allPosts, setAllPosts] = useState([]);
     const [loader, setLoader] = useState(true)
     const [searchText, setSearchText] = useState("");
@@ -26,7 +28,7 @@ const Feed = () => {
                 setLoader(false)
             }
             else {
-                fetchPosts()
+                router.refresh()
             }
         }
         catch (err) {
