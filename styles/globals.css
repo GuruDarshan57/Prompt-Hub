@@ -34,11 +34,11 @@ nav{
 }
 
 .copy_button{
-  @apply text-[11px] p-[9px] border-2 rounded-full relative -right-2 -top-1 cursor-pointer place-content-center 
+  @apply text-[11px] p-[9px] border-2 border-white rounded-full relative -right-2 -top-1 cursor-pointer place-content-center 
 }
 
 .glassmorphism{
-  background-color: #ffffff1f;
+  background-color: #ffffff3c;
   backdrop-filter: blur(5px);
 }
 
