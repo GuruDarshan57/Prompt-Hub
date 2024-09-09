@@ -18,7 +18,7 @@
 }
 body{
   background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
-  background-color:#000000;
+  /* background-color:#000000; */
   overflow-x: hidden;
 }
 
@@ -70,4 +70,10 @@ nav{
 }
 @keyframes l20 {
   100% {transform: rotate(1turn)}
+}
+
+
+/* scroll-bar */
+::-webkit-scrollbar{
+  width:0px
 }

@@ -9,24 +9,25 @@ const Feed = () => {
     const router = useRouter()
     const [allPosts, setAllPosts] = useState([]);
     const [loader, setLoader] = useState(true)
+    const [refetchStatus, setRefetchStatus] = useState(false)
     const [searchText, setSearchText] = useState("");
     const [searchTimeout, setSearchTimeout] = useState(null);
     const [searchedResults, setSearchedResults] = useState([]);
 
     useEffect(() => {
         fetchPosts()
-    }, [])
+    }, [refetchStatus])
 
     const fetchPosts = async () => {
         try {
-            setTimeout(() => {
-                loader ? router.refresh() : ""
-            }, 5000);
             const res = await axios.get("/api/prompt");
             const data = res.data;
             if (res.status === 200) {
                 setAllPosts(data);
                 setLoader(false)
+            }
+            else {
+                setRefetchStatus((e) => !e)
             }
 
         }
