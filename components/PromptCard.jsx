@@ -38,15 +38,21 @@ const PromptCard = ({ data, handleTagClick }) => {
         <div className="flex break-inside-avoid flex-col place-content-centerc p-5 rounded-lg border-2 border-white w-80 gap-2 glassmorphism hover:border-gray-500" >
             <div className="flex justify-between items-center">
                 <Image src={creator.image} width={40} height={40} className='rounded-full cursor-pointer' onClick={handleProfileClick} alt="user profile image"></Image>
-                <div className="text-left">
+                <div className="text-left relative -left-2">
                     <p className="font-semibold cursor-pointer hover:underline" onClick={handleProfileClick}>{creator.username[0].toUpperCase() + creator.username.slice(1,)}</p>
-                    <p className="text-sm">{creator.email}</p>
+                    <p className="text-xs">{creator.email}</p>
                 </div>
                 {copy ? <i class="fa-solid fa-check copy_button bg-green-500"></i> : <i className="fa-regular fa-copy copy_button" onClick={handleCopy}></i>}
             </div>
             <div className="text-justify text-sm">{prompt}</div>
             <div className="flex text-left text-sm gap-2 mt-2 flex-wrap">
                 {tag.split("#").slice(1,).map(ele => <p key={ele} className='p-1 px-2 border-2 border-white rounded-lg cursor-pointer hover:border-gray-500' onClick={() => handleTagClick(ele)}>#{ele}</p>)}
+            </div>
+            <div className="flex justify-between gap-2">
+                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[2px] hover:border-gray-500">{true ? <i className="fa-regular fa-thumbs-up"></i> : <i className="fa-solid fa-thumbs-up"></i>}</div>
+                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[2px] hover:border-gray-500">{true ? <i className="fa-regular fa-thumbs-down"></i> : <i className="fa-solid fa-thumbs-down"></i>}</div>
+                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[2px] hover:border-gray-500">{true ? <i className="fa-regular fa-heart"></i> : <i className="fa-solid fa-heart"></i>}</div>
+                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[2px] hover:border-gray-500"><i className="fa-solid fa-arrow-up-from-bracket"></i></div>
             </div>
             {session?.user.id === creator._id && pathname === '/profile' ? <div className=" flex justify-between gap-4">
                 <button className='button_red flex-1' onClick={() => { router.push(`/edit-post/${_id}`) }} style={{ borderRadius: "10px" }}>Edit</button>
