@@ -12,9 +12,10 @@ const Schema = new mongoose.Schema({
     },
     image: {
         type: String
-    }
+    },
+    favourites: [{ type: mongoose.Types.ObjectId, ref: "Prompt" }]
 })
 
-const Users = mongoose.models.Users || mongoose.model("Users", Schema)
+const Users = mongoose.models.User || mongoose.model("User", Schema)
 
 export default Users;

@@ -20,6 +20,7 @@ const authOptions = {
                 await connectToDB();
                 const sessionUser = await Users.findOne({ email: session.user.email });
                 session.user.id = sessionUser._id.toString();
+                session.user.fav = sessionUser.favourites
 
                 return session;
             } catch (err) {

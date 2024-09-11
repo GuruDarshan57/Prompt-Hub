@@ -10,6 +10,7 @@ const PromptCard = ({ data, handleTagClick }) => {
     const pathname = usePathname()
     const { _id, creator, prompt, tag } = data
     const [copy, setCopy] = useState(false)
+    const [fav, setFav] = useState(session?.user.fav.includes(_id))
 
     const router = useRouter();
 
@@ -34,6 +35,17 @@ const PromptCard = ({ data, handleTagClick }) => {
             console.log(err.messsge)
         }
     }
+
+    const handleFavClick = async () => {
+        session?.user ? "" : toast.warning("Please SignIn !!")
+        try {
+            const resp = await axios.post(`/api/fav/${_id}`, { uid: session?.user.id, fav: !fav })
+            resp.status === 200 ? setFav(e => !e) : ""
+        }
+        catch (err) {
+            console.log(err.messsge)
+        }
+    }
     return (
         <div className="flex break-inside-avoid flex-col place-content-centerc p-5 rounded-lg border-2 border-white w-80 gap-2 glassmorphism hover:border-gray-500" >
             <div className="flex justify-between items-center">
@@ -51,7 +63,7 @@ const PromptCard = ({ data, handleTagClick }) => {
             <div className="flex justify-between gap-2">
                 <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[2px] hover:border-gray-500">{true ? <i className="fa-regular fa-thumbs-up"></i> : <i className="fa-solid fa-thumbs-up"></i>}</div>
                 <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[2px] hover:border-gray-500">{true ? <i className="fa-regular fa-thumbs-down"></i> : <i className="fa-solid fa-thumbs-down"></i>}</div>
-                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[2px] hover:border-gray-500">{true ? <i className="fa-regular fa-heart"></i> : <i className="fa-solid fa-heart"></i>}</div>
+                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[2px] hover:border-gray-500" onClick={handleFavClick}><i className={`fa-${fav ? "solid" : "regular"} fa-heart`}></i></div>
                 <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[2px] hover:border-gray-500"><i className="fa-solid fa-arrow-up-from-bracket"></i></div>
             </div>
             {session?.user.id === creator._id && pathname === '/profile' ? <div className=" flex justify-between gap-4">
