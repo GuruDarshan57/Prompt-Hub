@@ -4,6 +4,8 @@ import { connectToDB } from "@utils/database";
 
 export const POST = async (req, { params }) => {
     try {
+        await connectToDB()
+
         const { uid, setlike } = await req.json();
         console.log(uid, setlike)
         const user = await Users.findOne({ _id: uid })

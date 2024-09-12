@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter, usePathname } from 'next/navigation'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { set } from 'mongoose'
 
 const PromptCard = ({ data, handleTagClick }) => {
     const { data: session } = useSession()

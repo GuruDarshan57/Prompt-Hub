@@ -16,7 +16,6 @@ export const GET = async (req, { params }) => {
 export const PATCH = async (req, { params }) => {
     const pos = await req.json()
     try {
-        console.log(pos)
         await connectToDB
         const res = await Prompts.findByIdAndUpdate(params.id, { prompt: pos.post.prompt, tag: pos.post.tag })
         return new Response(JSON.stringify(res), { status: 200 })
