@@ -13,6 +13,7 @@ const PromptCard = ({ data, handleTagClick }) => {
     const [copy, setCopy] = useState(false)
     const [like, setLike] = useState(likes.includes(session?.user.id))
     const [nlikes, setNlikes] = useState(likes.length)
+    const [save, setSave] = useState(session?.user.saved.includes(_id))
 
     const router = useRouter();
 
@@ -39,16 +40,40 @@ const PromptCard = ({ data, handleTagClick }) => {
     }
 
     const handleLikeClick = async () => {
-        session?.user ? "" : toast.warning("Please SignIn !!")
-        try {
-            const setlike = !like
-            setLike(e => !e)
-            setNlikes(e => setlike ? e + 1 : e - 1)
-            const resp = await axios.post(`/api/like/${_id}`, { uid: session?.user.id, setlike })
+        if (session?.user) {
+            try {
+                const setlike = !like
+                setLike(e => !e)
+                setNlikes(e => setlike ? e + 1 : e - 1)
+                const resp = await axios.post(`/api/like/${_id}`, { uid: session?.user.id, setlike })
+            }
+            catch (err) {
+                console.log(err.messsge)
+            }
         }
-        catch (err) {
-            console.log(err.messsge)
+        else {
+            toast.warning("Please SignIn !!")
+            return;
         }
+
+    }
+
+    const handleSaveClick = async () => {
+        if (session?.user) {
+            try {
+                const setsave = !save
+                setSave(e => !e)
+                const resp = await axios.post(`/api/save/${_id}`, { uid: session?.user.id, setsave })
+            }
+            catch (err) {
+                console.log(err.messsge)
+            }
+        }
+        else {
+            toast.warning("Please SignIn !!")
+            return;
+        }
+
     }
     return (
         <div className="flex break-inside-avoid flex-col place-content-centerc p-5 rounded-lg border-2 border-white w-80 gap-2 glassmorphism hover:border-gray-500" >
@@ -67,7 +92,7 @@ const PromptCard = ({ data, handleTagClick }) => {
             <div className="flex justify-between gap-3">
                 <div className="flex justify-center items-center gap-2 border-2 flex-1 border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500" onClick={handleLikeClick}><i className={`fa-${like ? "solid" : "regular"} fa-heart`}></i><p>{nlikes}</p></div>
                 <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500"><i class="fa-solid fa-share"></i></div>
-                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500"><i class="fa-regular fa-bookmark"></i></div>
+                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500" onClick={handleSaveClick}><i className={`fa-${save ? "solid" : "regular"} fa-bookmark`}></i></div>
             </div>
             {
                 session?.user.id === creator._id && pathname === '/profile' ? <div className=" flex justify-between gap-4">
