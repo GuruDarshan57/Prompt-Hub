@@ -7,7 +7,7 @@ export const POST = async (req, { params }) => {
         await connectToDB()
 
         const { uid, setlike } = await req.json();
-        console.log(uid, setlike)
+        // console.log(uid, setlike)
         const user = await Users.findOne({ _id: uid })
         setlike ? user.liked.push(params.id) : user.liked = user.liked.filter(ele => ele != params.id)
         await user.save()
