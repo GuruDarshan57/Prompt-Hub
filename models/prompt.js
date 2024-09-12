@@ -1,9 +1,10 @@
-import { Schema, model, models } from 'mongoose';
+import mongoose, { Schema, model, models } from 'mongoose';
+import Users from './user';
 
 const PromptSchema = new Schema({
     creator: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Users',
         required: [true, 'Tag is required.']
     },
     prompt: {
@@ -13,9 +14,10 @@ const PromptSchema = new Schema({
     tag: {
         type: String,
         required: [true, 'Tag is required.'],
-    }
+    },
+    likes: [{ type: mongoose.Types.ObjectId, ref: Users }]
 });
 
-const Prompt = models.Prompt || model('Prompt', PromptSchema);
+const Prompt = models.Prompts || model('Prompts', PromptSchema);
 
 export default Prompt;

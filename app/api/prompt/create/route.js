@@ -1,4 +1,4 @@
-import Prompt from "@models/prompt";
+import Prompts from "@models/prompt";
 import { connectToDB } from "@utils/database";
 
 export const POST = async (request) => {
@@ -6,7 +6,7 @@ export const POST = async (request) => {
 
     try {
         await connectToDB();
-        const newPrompt = await Prompt.create({ creator: uid, prompt, tag });
+        const newPrompt = await Prompts.create({ creator: uid, prompt, tag });
         return new Response(JSON.stringify(newPrompt), { status: 200 })
     } catch (error) {
         console.log(error.message)

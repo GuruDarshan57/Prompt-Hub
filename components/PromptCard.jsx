@@ -8,9 +8,10 @@ import { toast } from 'react-toastify'
 const PromptCard = ({ data, handleTagClick }) => {
     const { data: session } = useSession()
     const pathname = usePathname()
-    const { _id, creator, prompt, tag } = data
+    const { _id, creator, prompt, tag, likes } = data
     const [copy, setCopy] = useState(false)
-    const [fav, setFav] = useState(session?.user.fav.includes(_id))
+    const [like, setLike] = useState(likes.includes(session?.user.id))
+    const [nlikes, setNlikes] = useState(likes.length)
 
     const router = useRouter();
 
@@ -36,11 +37,13 @@ const PromptCard = ({ data, handleTagClick }) => {
         }
     }
 
-    const handleFavClick = async () => {
+    const handleLikeClick = async () => {
         session?.user ? "" : toast.warning("Please SignIn !!")
         try {
-            const resp = await axios.post(`/api/fav/${_id}`, { uid: session?.user.id, fav: !fav })
-            resp.status === 200 ? setFav(e => !e) : ""
+            const setlike = !like
+            setLike(e => !e)
+            setNlikes(e => setlike ? e + 1 : e - 1)
+            const resp = await axios.post(`/api/like/${_id}`, { uid: session?.user.id, setlike })
         }
         catch (err) {
             console.log(err.messsge)
@@ -60,17 +63,18 @@ const PromptCard = ({ data, handleTagClick }) => {
             <div className="flex text-left text-sm gap-2 mt-2 flex-wrap">
                 {tag.split("#").slice(1,).map(ele => <p key={ele} className='p-1 px-2 border-2 border-white rounded-lg cursor-pointer hover:border-gray-500' onClick={() => handleTagClick(ele)}>#{ele}</p>)}
             </div>
-            <div className="flex justify-between gap-2">
-                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[2px] hover:border-gray-500">{true ? <i className="fa-regular fa-thumbs-up"></i> : <i className="fa-solid fa-thumbs-up"></i>}</div>
-                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[2px] hover:border-gray-500">{true ? <i className="fa-regular fa-thumbs-down"></i> : <i className="fa-solid fa-thumbs-down"></i>}</div>
-                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[2px] hover:border-gray-500" onClick={handleFavClick}><i className={`fa-${fav ? "solid" : "regular"} fa-heart`}></i></div>
-                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[2px] hover:border-gray-500"><i className="fa-solid fa-arrow-up-from-bracket"></i></div>
+            <div className="flex justify-between gap-3">
+                <div className="flex justify-center items-center gap-2 border-2 flex-1 border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500" onClick={handleLikeClick}><i className={`fa-${like ? "solid" : "regular"} fa-heart`}></i><p>{nlikes}</p></div>
+                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500"><i class="fa-solid fa-share"></i></div>
+                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500"><i class="fa-regular fa-bookmark"></i></div>
             </div>
-            {session?.user.id === creator._id && pathname === '/profile' ? <div className=" flex justify-between gap-4">
-                <button className='button_red flex-1' onClick={() => { router.push(`/edit-post/${_id}`) }} style={{ borderRadius: "10px" }}>Edit</button>
-                <button className='button_red flex-1' onClick={handleDelete} style={{ borderRadius: "10px" }}>Delete</button>
-            </div> : ""}
-        </div>
+            {
+                session?.user.id === creator._id && pathname === '/profile' ? <div className=" flex justify-between gap-4">
+                    <button className='button_red flex-1' onClick={() => { router.push(`/edit-post/${_id}`) }} style={{ borderRadius: "10px" }}>Edit</button>
+                    <button className='button_red flex-1' onClick={handleDelete} style={{ borderRadius: "10px" }}>Delete</button>
+                </div> : ""
+            }
+        </div >
     )
 }
 

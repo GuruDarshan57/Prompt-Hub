@@ -1,10 +1,10 @@
-import Prompt from '@models/prompt'
+import Prompts from '@models/prompt'
 import { connectToDB } from '@utils/database'
 
 export const GET = async (req, { params }) => {
     try {
         await connectToDB
-        const res = await Prompt.findOne({ _id: params.id })
+        const res = await Prompts.findOne({ _id: params.id })
         return new Response(JSON.stringify(res), { status: 200 })
 
     } catch (err) {
@@ -18,7 +18,7 @@ export const PATCH = async (req, { params }) => {
     try {
         console.log(pos)
         await connectToDB
-        const res = await Prompt.findByIdAndUpdate(params.id, { prompt: pos.post.prompt, tag: pos.post.tag })
+        const res = await Prompts.findByIdAndUpdate(params.id, { prompt: pos.post.prompt, tag: pos.post.tag })
         return new Response(JSON.stringify(res), { status: 200 })
     } catch (err) {
         console.log(err.message)
@@ -29,7 +29,7 @@ export const PATCH = async (req, { params }) => {
 export const DELETE = async (req, { params }) => {
     try {
         await connectToDB
-        const res = await Prompt.findByIdAndDelete(params.id)
+        const res = await Prompts.findByIdAndDelete(params.id)
         return new Response(JSON.stringify(res), { status: 200 })
 
     } catch (err) {
