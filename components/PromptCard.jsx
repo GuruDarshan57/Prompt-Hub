@@ -81,7 +81,7 @@ const PromptCard = ({ data, handleTagClick, large }) => {
         navigator.clipboard.writeText(`https://prompt-hub-zeta.vercel.app/prompt/${_id}`)
     }
     return (
-        <div className={`flex break-inside-avoid flex-col place-content-centerc p-5 rounded-lg border-2 border-white ${large ? "w-80 sm:w-full" : "w-80 hover:border-gray-500"} gap-3 glassmorphism `} >
+        <div className={`flex break-inside-avoid flex-col place-content-centerc p-5 rounded-lg border-2 border-white ${large ? "w-full" : "w-[340px] sm:w-80 hover:border-gray-500"} gap-3 glassmorphism `} >
             <div className="flex justify-between items-center">
                 <div className='flex gap-2'>
                     <Image src={creator.image} width={40} height={40} className='rounded-full cursor-pointer' onClick={handleProfileClick} alt="user profile image"></Image>
@@ -98,7 +98,7 @@ const PromptCard = ({ data, handleTagClick, large }) => {
             </div>
             <div className={`flex ${large ? 'flex-start' : "justify-between"} gap-3`}>
                 <div className={`flex justify-center items-center gap-2 border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500 `} onClick={handleLikeClick}><i className={`fa-${like ? "solid" : "regular"} fa-heart`}></i><p>{nlikes}</p></div>
-                <div className={`flex justify-center items-center border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500`} onClick={handleShareClick}><i className="fa-solid fa-share"></i></div>
+                <div className={`flex justify-center items-center border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500`} onClick={handleShareClick}><i className="fa-solid fa-share-nodes"></i></div>
                 <div className={`flex justify-center items-center border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500`} onClick={handleSaveClick}><i className={`fa-${save ? "solid" : "regular"} fa-bookmark`}></i></div>
             </div>
             {
