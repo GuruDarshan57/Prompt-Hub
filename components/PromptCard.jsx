@@ -5,7 +5,6 @@ import { useSession } from 'next-auth/react'
 import { useRouter, usePathname } from 'next/navigation'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { set } from 'mongoose'
 
 const PromptCard = ({ data, handleTagClick, large }) => {
     const { data: session } = useSession()
@@ -65,6 +64,7 @@ const PromptCard = ({ data, handleTagClick, large }) => {
                 const setsave = !save
                 setSave(e => !e)
                 const resp = await axios.post(`/api/save/${_id}`, { uid: session?.user.id, setsave })
+                setsave ? session?.user?.saved.push(_id) : session.user.saved = session.user.saved.filter(ele => ele != _id)
             }
             catch (err) {
                 console.log(err.messsge)
@@ -81,7 +81,7 @@ const PromptCard = ({ data, handleTagClick, large }) => {
         navigator.clipboard.writeText(`https://prompt-hub-zeta.vercel.app/prompt/${_id}`)
     }
     return (
-        <div className={`flex break-inside-avoid flex-col place-content-centerc p-5 rounded-lg border-2 border-white ${large ? "w-80 sm:w-full" : "w-80"} gap-3 glassmorphism hover:border-gray-500`} >
+        <div className={`flex break-inside-avoid flex-col place-content-centerc p-5 rounded-lg border-2 border-white ${large ? "w-80 sm:w-full" : "w-80 hover:border-gray-500"} gap-3 glassmorphism `} >
             <div className="flex justify-between items-center">
                 <div className='flex gap-2'>
                     <Image src={creator.image} width={40} height={40} className='rounded-full cursor-pointer' onClick={handleProfileClick} alt="user profile image"></Image>

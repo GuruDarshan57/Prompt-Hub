@@ -21,7 +21,6 @@ const authOptions = {
                 const sessionUser = await Users.findOne({ email: session.user.email });
                 session.user.id = sessionUser._id.toString();
                 session.user.saved = sessionUser.saved
-
                 return session;
             } catch (err) {
                 console.log(err.message)
