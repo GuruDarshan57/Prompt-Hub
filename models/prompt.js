@@ -24,6 +24,9 @@ const PromptSchema = new Schema({
         comment: {
             type: String,
             required: [true, 'Comment Required']
+        },
+        createdAt: {
+            type: String
         }
     }]
 });
