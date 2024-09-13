@@ -10,6 +10,7 @@ export const POST = async (req, { params }) => {
         console.log(newComment, params.id)
         const prompt = await Prompts.findOne({ _id: params.id })
         prompt.comments.push(newComment)
+        await prompt.save()
         return new Response("Comment Added", { status: 200 })
 
     } catch (err) {

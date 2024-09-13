@@ -4,7 +4,10 @@ import { connectToDB } from '@utils/database'
 export const GET = async (req, { params }) => {
     try {
         await connectToDB
-        const res = await Prompts.findOne({ _id: params.id }).populate('creator')
+        const res = await Prompts.findOne({ _id: params.id }).populate('creator').populate({
+            path: 'comments',
+            populate: { path: 'uid' }
+        })
         return new Response(JSON.stringify(res), { status: 200 })
 
     } catch (err) {
