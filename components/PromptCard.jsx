@@ -7,7 +7,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { set } from 'mongoose'
 
-const PromptCard = ({ data, handleTagClick }) => {
+const PromptCard = ({ data, handleTagClick, large }) => {
     const { data: session } = useSession()
     const pathname = usePathname()
     const { _id, creator, prompt, tag, likes } = data
@@ -15,7 +15,6 @@ const PromptCard = ({ data, handleTagClick }) => {
     const [like, setLike] = useState(likes.includes(session?.user.id))
     const [nlikes, setNlikes] = useState(likes.length)
     const [save, setSave] = useState(session?.user.saved.includes(_id))
-    const [share, setShare] = useState(false)
 
     const router = useRouter();
 
@@ -79,30 +78,28 @@ const PromptCard = ({ data, handleTagClick }) => {
     }
 
     const handleShareClick = () => {
-        setShare(true)
         navigator.clipboard.writeText(`https://prompt-hub-zeta.vercel.app/prompt/${_id}`)
-        setTimeout(() => {
-            setShare(false)
-        }, (3000));
     }
     return (
-        <div className="flex break-inside-avoid flex-col place-content-centerc p-5 rounded-lg border-2 border-white w-80 gap-3 glassmorphism hover:border-gray-500" >
+        <div className={`flex break-inside-avoid flex-col place-content-centerc p-5 rounded-lg border-2 border-white ${large ? "w-80 sm:w-full" : "w-80"} gap-3 glassmorphism hover:border-gray-500`} >
             <div className="flex justify-between items-center">
-                <Image src={creator.image} width={40} height={40} className='rounded-full cursor-pointer' onClick={handleProfileClick} alt="user profile image"></Image>
-                <div className="text-left relative -left-2">
-                    <p className="font-semibold cursor-pointer hover:underline" onClick={handleProfileClick}>{creator.username[0].toUpperCase() + creator.username.slice(1,)}</p>
-                    <p className="text-xs">{creator.email}</p>
+                <div className='flex gap-2'>
+                    <Image src={creator.image} width={40} height={40} className='rounded-full cursor-pointer' onClick={handleProfileClick} alt="user profile image"></Image>
+                    <div className="text-left">
+                        <p className="font-semibold cursor-pointer hover:underline" onClick={handleProfileClick}>{creator.username[0].toUpperCase() + creator.username.slice(1,)}</p>
+                        <p className="text-xs">{creator.email}</p>
+                    </div>
                 </div>
                 {copy ? <i class="fa-solid fa-check copy_button bg-green-500"></i> : <i className="fa-regular fa-copy copy_button" onClick={handleCopy}></i>}
             </div>
-            <div className="text-justify text-sm">{prompt.slice(0, 150)}.. <Link href={`/prompt/${_id}`} className='font-bold'>Read More</Link></div>
+            <div className="text-justify text-sm">{prompt.slice(0, large ? prompt.length : 150)}{large ? "" : <Link href={`/prompt/${_id}`} className='font-bold'>. . . Read More</Link>}</div>
             <div className="flex text-left text-sm gap-2 mt-2 flex-wrap">
                 {tag.split("#").slice(1,).map(ele => <p key={ele} className='p-1 px-2 border-2 border-white rounded-lg cursor-pointer hover:border-gray-500' onClick={() => handleTagClick(ele)}>#{ele}</p>)}
             </div>
-            <div className="flex justify-between gap-3">
-                <div className="flex justify-center items-center gap-2 border-2 flex-1 border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500" onClick={handleLikeClick}><i className={`fa-${like ? "solid" : "regular"} fa-heart`}></i><p>{nlikes}</p></div>
-                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500" onClick={handleShareClick}><i className="fa-solid fa-share"></i></div>
-                <div className="border-2 flex-1 border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500" onClick={handleSaveClick}><i className={`fa-${save ? "solid" : "regular"} fa-bookmark`}></i></div>
+            <div className={`flex ${large ? 'flex-start' : "justify-between"} gap-3`}>
+                <div className={`flex justify-center items-center gap-2 border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500 `} onClick={handleLikeClick}><i className={`fa-${like ? "solid" : "regular"} fa-heart`}></i><p>{nlikes}</p></div>
+                <div className={`flex justify-center items-center border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500`} onClick={handleShareClick}><i className="fa-solid fa-share"></i></div>
+                <div className={`flex justify-center items-center border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500`} onClick={handleSaveClick}><i className={`fa-${save ? "solid" : "regular"} fa-bookmark`}></i></div>
             </div>
             {
                 session?.user.id === creator._id && pathname === '/profile' ? <div className=" flex justify-between gap-4">
