@@ -92,7 +92,7 @@ const PromptCard = ({ data, handleTagClick, large }) => {
                 </div>
                 {copy ? <i class="fa-solid fa-check copy_button bg-green-500"></i> : <i className="fa-regular fa-copy copy_button" onClick={handleCopy}></i>}
             </div>
-            <div className="text-justify text-sm">{prompt.slice(0, large ? prompt.length : 150)}{large ? "" : <Link href={`/prompt/${_id}`} className='font-bold'>. . . Read More</Link>}</div>
+            <div className="text-justify text-sm">{prompt.slice(0, large ? prompt.length : 150)}{large ? "" : <Link href={`/prompt/${_id}`} className='font-bold'>... Read More</Link>}</div>
             <div className="flex text-left text-sm gap-2 mt-2 flex-wrap">
                 {tag.split("#").slice(1,).map(ele => <p key={ele} className='p-1 px-2 border-2 border-white rounded-lg cursor-pointer hover:border-gray-500' onClick={() => handleTagClick(ele)}>#{ele}</p>)}
             </div>

@@ -2,7 +2,6 @@ import Footer from '@components/Footer'
 import Nav from '@components/Nav'
 import Provider from '@components/Provider'
 import '@styles/globals.css'
-
 import { ToastContainer, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -24,7 +23,6 @@ const RootLayout = ({ children }) => {
                         <Footer />
                     </main>
                 </Provider>
-                <script src="https://kit.fontawesome.com/3874570f12.js" crossOrigin="anonymous"></script>
                 <ToastContainer
                     position="top-right"
                     autoClose={4000}
@@ -38,6 +36,7 @@ const RootLayout = ({ children }) => {
                     theme="colored"
                     transition={Bounce}
                 />
+                <script src="https://kit.fontawesome.com/3874570f12.js" crossOrigin="anonymous"></script>
             </body>
         </html>
     )

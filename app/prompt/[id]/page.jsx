@@ -39,6 +39,7 @@ const page = ({ params }) => {
                     createdAt: new Date().toUTCString().slice(0, -4)
                 }
                 const resp = await axios.post(`/api/comment/${params.id}`, payload)
+                toast.success("Comment Added Successfully")
             }
             else {
                 toast.warning("You need to be logged in to comment.")
@@ -50,8 +51,8 @@ const page = ({ params }) => {
         }
     }
     return (
-        <div className="w-full flex place-content-center px-4 sm:px-20 mt-24 mb-28">
-            {loader ? <Loader /> : post ? <div className="flex w-full flex-col gap-2">
+        <div className="w-full flex place-content-center px-4 sm:px-28 mt-24 mb-28">
+            {loader || !post ? <Loader /> : post ? <div className="flex w-full flex-col gap-2">
                 {post ? <PromptCard data={post} large={true} /> : ""}
                 <div className="w-full flex flex-col gap-2 p-5 border-2 border-white rounded-lg glassmorphism">
                     <div className="">Add Comment</div>
@@ -60,11 +61,13 @@ const page = ({ params }) => {
                         <input type="text" className='flex-1 rounded-lg outline-none px-3 h-8' placeholder='Add a Comment . . .' value={comment} onChange={(e) => { setComment(e.target.value) }} />
                         <button type='submit' className='border-2 border-white px-4 hover:border-gray-500 h-8 rounded-lg' onClick={handleAddComment}><i class="fa-regular fa-paper-plane"></i></button>
                     </form>
-                    <div className="">Comments [{post.comments.length}]<i class="fa-solid fa-arrows-rotate ml-2 cursor-pointer" onClick={() => setRefresh(true)}></i></div>
-                    <div className=" flex flex-col w-full gap-2"
+                    <div className="flex w-full justify-between gap-3">
+                        <div>Comments [{post.comments.length}]</div>
+                        <div className='flex gap-2 items-center' onClick={() => setRefresh(true)}><i class="fa-solid fa-arrows-rotate ml-2 cursor-pointer" ></i>Refresh</div></div>
+                    <div className=" flex flex-col w-full gap-3 "
                     >
                         {post?.comments ? post.comments.map(ele =>
-                            <div className='w-full flex flex-col gap-2 justify-center-center p-2  border-2 rounded-lg'>
+                            <div className='w-full flex flex-col gap-2 justify-center-center p-2  border-2 border-white rounded-lg'>
                                 <div className="flex gap-2 items-center">
                                     <Image src={ele.uid.image} width={35} height={35} className='rounded-full ' alt='profile_img'></Image>
                                     <div className=" flex flex-col  items-start">
@@ -72,7 +75,7 @@ const page = ({ params }) => {
                                         <p className='text-xs'>{ele.createdAt}</p>
                                     </div>
                                 </div>
-                                <div className="">{ele.comment}</div>
+                                <div className="text-justify">{ele.comment}</div>
                             </div>
                         ) : <div className="w-full text-center">No Comments</div>}
 
