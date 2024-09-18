@@ -52,7 +52,7 @@ const PromptCard = ({ data, handleTagClick, large }) => {
             }
         }
         else {
-            toast.warning("Please SignIn !!")
+            toast.warning("You need to be logged in to Like.")
             return;
         }
 
@@ -71,7 +71,7 @@ const PromptCard = ({ data, handleTagClick, large }) => {
             }
         }
         else {
-            toast.warning("Please SignIn !!")
+            toast.warning("You need to be logged in to Save.")
             return;
         }
 
