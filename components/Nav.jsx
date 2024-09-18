@@ -11,6 +11,7 @@ const Nav = () => {
     const [providers, setProviders] = useState(null)
     const [toggleNav, setToggleNav] = useState(false)
 
+    //Fetch NextAuth Providers
     useEffect(() => {
         const GetProviders = async () => {
             const res = await getProviders();
@@ -61,11 +62,11 @@ const Nav = () => {
                     {toggleNav ? "" : <i className="fa-solid fa-bars text-2xl place-content-center" onClick={() => setToggleNav((e) => !e)}></i>}
                     {toggleNav ? <i className="fa-solid fa-xmark text-2xl place-content-center" onClick={() => setToggleNav((e) => !e)}></i> : ""}
                 </div>
-                {toggleNav ? session?.user ? <div className='flex flex-col w-full  gap-3 absolute top-14 z-10 text-center px-6 py-6 rounded-3xl glassmorphism'>
-                    <Link href={"/"} className='button_red'>Home</Link>
-                    <Link href={"/create-post"} className='button_red '>Create New Post</Link>
-                    <Link href={"/profile"} className='button_red'>Profile</Link>
-                    <button onClick={() => { signOut() }} className='button_red'>SignOut</button>
+                {toggleNav ? session?.user ? <div className='flex flex-col w-full  gap-3 absolute top-14 z-10 text-center px-6 py-6 rounded-lg glassmorphism border-2 border-white'>
+                    <Link href={"/"} className='button_red' style={{ borderRadius: "10px" }}>Home</Link>
+                    <Link href={"/create-post"} className='button_red ' style={{ borderRadius: "10px" }}>Create New Post</Link>
+                    <Link href={"/profile"} className='button_red' style={{ borderRadius: "10px" }}>Profile</Link>
+                    <button onClick={() => { signOut() }} className='button_red' style={{ borderRadius: "10px" }}>SignOut</button>
                 </div> : providers &&
                 Object.values(providers).map((provider) => (
                     <button

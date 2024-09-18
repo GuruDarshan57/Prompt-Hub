@@ -3,10 +3,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import PromptBox from './PromptBox'
 import Loader from './Loader'
-import { useRouter } from 'next/navigation'
 
 const Feed = () => {
-    const router = useRouter()
     const [allPosts, setAllPosts] = useState([]);
     const [loader, setLoader] = useState(true)
     const [refetchStatus, setRefetchStatus] = useState(false)
@@ -14,10 +12,12 @@ const Feed = () => {
     const [searchTimeout, setSearchTimeout] = useState(null);
     const [searchedResults, setSearchedResults] = useState([]);
 
+    //Fetching all the posts
     useEffect(() => {
         fetchPosts()
     }, [refetchStatus])
 
+    //Function to fetch all the posts
     const fetchPosts = async () => {
         try {
             const res = await axios.get("/api/prompt");
@@ -29,7 +29,6 @@ const Feed = () => {
             else {
                 setRefetchStatus((e) => !e)
             }
-
         }
         catch (err) {
             console.log(err.message)
@@ -37,7 +36,7 @@ const Feed = () => {
     };
 
     const filterPrompts = (searchtext) => {
-        const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
+        const regex = new RegExp(searchtext, "i");
         return allPosts.filter(
             (item) =>
                 regex.test(item.creator.username) ||
@@ -49,8 +48,6 @@ const Feed = () => {
     const handleSearchChange = (e) => {
         clearTimeout(searchTimeout);
         setSearchText(e.target.value);
-
-        // debounce method
         setSearchTimeout(
             setTimeout(() => {
                 const searchResult = filterPrompts(e.target.value);

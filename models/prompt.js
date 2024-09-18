@@ -1,6 +1,7 @@
 import mongoose, { Schema, model, models } from 'mongoose';
 import Users from './user';
 
+//Schema for the Prompt
 const PromptSchema = new Schema({
     creator: {
         type: Schema.Types.ObjectId,

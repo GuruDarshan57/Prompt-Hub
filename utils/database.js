@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
 
+//To make sure we are not creating multiple connections
 let isConnected = false;
 
+//To connect to the database
 export const connectToDB = async () => {
     mongoose.set('strictQuery', true);
     if (isConnected) {
@@ -15,6 +17,6 @@ export const connectToDB = async () => {
 
         console.log('Connected To DB')
     } catch (error) {
-        console.log("DB error" + error.message);
+        console.log("DB connection error" + error.message);
     }
 }

@@ -4,7 +4,6 @@ import GoogleProvider from "next-auth/providers/google"
 
 import Users from '@models/user';
 import { connectToDB } from '@utils/database';
-import { signIn } from "next-auth/react";
 
 const authOptions = {
     providers: [
@@ -15,7 +14,6 @@ const authOptions = {
     ],
     callbacks: {
         async session({ session }) {
-
             try {
                 await connectToDB();
                 const sessionUser = await Users.findOne({ email: session.user.email });
