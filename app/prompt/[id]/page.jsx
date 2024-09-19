@@ -39,6 +39,7 @@ const page = ({ params }) => {
                     createdAt: new Date().toUTCString().slice(0, -4)
                 }
                 const resp = await axios.post(`/api/comment/${params.id}`, payload)
+                setComment("")
                 toast.success("Comment Added Successfully")
             }
             else {
@@ -63,7 +64,7 @@ const page = ({ params }) => {
                     </form>
                     <div className="flex w-full justify-between gap-3">
                         <div>Comments [{post.comments.length}]</div>
-                        <div className='flex gap-2 items-center' onClick={() => setRefresh(true)}><i class="fa-solid fa-arrows-rotate ml-2 cursor-pointer" ></i>Refresh</div></div>
+                        <div className='flex gap-2 items-center border-2 px-2 border-white rounded-lg cursor-pointer' onClick={() => setRefresh(true)}><i class="fa-solid fa-arrows-rotate ml-2 cursor-pointer" ></i>Refresh</div></div>
                     <div className=" flex flex-col w-full gap-3 "
                     >
                         {post?.comments ? post.comments.map(ele =>
