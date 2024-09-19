@@ -13,6 +13,8 @@ PromptHub is an open-source AI prompting full-stack tool for the modern world. I
 
 ![5](https://github.com/user-attachments/assets/5f567a2a-a8ed-4d32-9797-ab42b2ed6911)
 
+![Prompt Hub](https://github.com/user-attachments/assets/fccd4868-995d-470a-a738-df7122297d8d)
+
 ## Features
 
 - **Authentication with Google:** Users can sign in to PromptHub using their Google accounts, ensuring a secure and hassle-free login process.
