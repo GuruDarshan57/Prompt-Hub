@@ -35,6 +35,8 @@ const Nav = () => {
                         <Link href={"/profile"}><Image src={session.user.image} height={"38"} width={"38"} alt="profile_img" className='rounded-[12px] border-[2px] border-black' /></Link>
                     </>
                     : <>
+                        <Link className='button_red' href={"/"}>Home</Link>
+
                         {providers &&
                             Object.values(providers).map((provider) => (
                                 <button
@@ -62,24 +64,26 @@ const Nav = () => {
                     {toggleNav ? "" : <i className="fa-solid fa-bars text-2xl place-content-center" onClick={() => setToggleNav((e) => !e)}></i>}
                     {toggleNav ? <i className="fa-solid fa-xmark text-2xl place-content-center" onClick={() => setToggleNav((e) => !e)}></i> : ""}
                 </div>
-                {toggleNav ? session?.user ? <div className='flex flex-col w-full  gap-3 absolute top-14 z-10 text-center px-6 py-6 rounded-lg glassmorphism border-2 border-white'>
-                    <Link href={"/"} className='button_red' style={{ borderRadius: "10px" }}>Home</Link>
-                    <Link href={"/create-post"} className='button_red ' style={{ borderRadius: "10px" }}>Create New Post</Link>
-                    <Link href={"/profile"} className='button_red' style={{ borderRadius: "10px" }}>Profile</Link>
-                    <button onClick={() => { signOut() }} className='button_red' style={{ borderRadius: "10px" }}>SignOut</button>
-                </div> : providers &&
-                Object.values(providers).map((provider) => (
-                    <button
-                        type='button'
-                        key={provider.name}
-                        onClick={() => {
-                            signIn(provider.id);
-                        }}
-                        className='button_red'
-                    >
-                        Sign in with {provider.name}
-                    </button>
-                )) : ""}
+                {toggleNav ? <div className='flex flex-col w-full  gap-3 absolute top-14 z-10 text-center p-4 rounded-2xl glassmorphism border-2 border-white'>
+                    {session?.user ? <><Link href={"/"} className='button_red' >Home</Link>
+                        <Link href={"/create-post"} className='button_red ' >Create New Post</Link>
+                        <Link href={"/profile"} className='button_red' >Profile</Link>
+                        <button onClick={() => { signOut() }} className='button_red'>SignOut</button></> : <>
+                        <Link className='button_red' href={"/"}>Home</Link>
+                        {providers &&
+                            Object.values(providers).map((provider) => (
+                                <button
+                                    type='button'
+                                    key={provider.name}
+                                    onClick={() => {
+                                        signIn(provider.id);
+                                    }}
+                                    className='button_red'
+                                >
+                                    Sign in with {provider.name}
+                                </button>
+                            ))} </>}
+                </div> : ""}
             </div>
 
         </nav>
