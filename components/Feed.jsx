@@ -66,8 +66,9 @@ const Feed = () => {
 
     return (
         <div className='flex flex-col w-full sm:w-4/5 pt-5 justify-center items-center'>
-            <form className='w-full'>
-                <input type="text" className='w-11/12 lg:w-3/5 h-10 p-1 rounded-lg outline-none px-3' placeholder='Search for a word, a tag or a username ...' value={searchText} onChange={handleSearchChange} />
+            <form className='flex justify-center items-center w-full relative'>
+                <input type="text" className='w-[95%] lg:w-3/5 h-10 p-1 rounded-lg outline-none px-3' placeholder='Search for a word, a tag or a username ...' value={searchText} onChange={handleSearchChange} />
+                {searchText ? <i className="fa-solid fa-circle-xmark text-xl absolute sm:relative right-4 sm:right-7 cursor-pointer" onClick={() => { setSearchText("") }}></i> : ""}
             </form >
             {loader ? <Loader /> : <PromptBox data={searchText ? searchedResults : allPosts} handleTagClick={handleTagClick} />}
         </div >

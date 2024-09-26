@@ -81,7 +81,7 @@ const PromptCard = ({ data, handleTagClick, large }) => {
         navigator.clipboard.writeText(`https://prompt-hub-zeta.vercel.app/prompt/${_id}`)
     }
     return (
-        <div className={`flex break-inside-avoid flex-col place-content-centerc p-5 rounded-lg border-2 border-white ${large ? "w-full" : "w-[340px] sm:w-80 hover:border-gray-500"} gap-3 glassmorphism `} >
+        <div className={`flex break-inside-avoid flex-col place-content-center p-5 rounded-lg border-2 border-white ${large ? "w-full" : "w-[340px] sm:w-80 hover:border-gray-500"} gap-3 glassmorphism `} >
             <div className="flex justify-between items-center">
                 <div className='flex gap-2'>
                     <Image src={creator.image} width={40} height={40} className='rounded-full cursor-pointer' onClick={handleProfileClick} alt="user profile image"></Image>
@@ -90,14 +90,14 @@ const PromptCard = ({ data, handleTagClick, large }) => {
                         <p className="text-xs">{creator.email}</p>
                     </div>
                 </div>
-                {copy ? <i class="fa-solid fa-check copy_button bg-green-500"></i> : <i className="fa-regular fa-copy copy_button" onClick={handleCopy}></i>}
+                {copy ? <i class="fa-solid fa-check copy_button bg-green-500"></i> : <i className="fa-regular fa-copy copy_button hover:border-black" onClick={handleCopy}></i>}
             </div>
             <div className="text-justify text-sm leading-6">{prompt.slice(0, large ? prompt.length : 150)}{large ? "" : <Link href={`/prompt/${_id}`} className='font-bold'>... Read More</Link>}</div>
             <div className="flex text-left text-sm gap-2 mt-2 flex-wrap">
-                {tag.split("#").slice(1,).map(ele => <p key={ele} className='p-1 px-2 border-2 border-white rounded-lg cursor-pointer hover:border-gray-500' onClick={() => handleTagClick(ele)}>#{ele}</p>)}
+                {tag.split("#").slice(1,).map(ele => <p key={ele} className='p-1 px-2 flex justify-center items-center text-center border-2 border-white rounded-lg cursor-pointer hover:border-gray-500 flex-1' onClick={() => handleTagClick(ele)}>#{ele}</p>)}
             </div>
             <div className={`flex ${large ? 'flex-start' : "justify-between"} gap-3`}>
-                <div className={`flex justify-center items-center gap-2 border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500 `} onClick={handleLikeClick}><i className={`fa-${like ? "solid" : "regular"} fa-heart`}></i><p>{nlikes}</p></div>
+                <div className={`flex justify-center items-center gap-2 border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500 `} onClick={handleLikeClick}><i className={`fa-${like ? "solid" : "regular"} fa-heart`} style={{ color: "#ff0000" }}></i><p>{nlikes}</p></div>
                 <div className={`flex justify-center items-center border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500`} onClick={handleShareClick}><i className="fa-solid fa-share-nodes"></i></div>
                 <div className={`flex justify-center items-center border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500`} onClick={handleSaveClick}><i className={`fa-${save ? "solid" : "regular"} fa-bookmark`}></i></div>
             </div>
