@@ -7,7 +7,7 @@ const PromptBox = ({ data, handleTagClick }) => {
             {data?.map(ele =>
                 <PromptCard data={ele} key={ele._id} handleTagClick={handleTagClick} />
             )}{
-                data.length == 0 ? <><p></p> <p className=''>Prompt Not Found !!</p> </> : ""
+                data.length == 0 ? <><p></p> <p className='border-2 border-white px-4 p-1 rounded-lg glassmorphism'>No Prompt Found !!</p> </> : ""
             }
 
         </div>
