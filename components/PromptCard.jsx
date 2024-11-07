@@ -5,6 +5,13 @@ import { useSession } from 'next-auth/react'
 import { useRouter, usePathname } from 'next/navigation'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { FaRegCopy } from "react-icons/fa";
+import { TiTick } from "react-icons/ti";
+import { FaRegHeart } from "react-icons/fa6";
+import { FaHeart } from "react-icons/fa6";
+import { FiShare2 } from "react-icons/fi";
+import { FaRegBookmark } from "react-icons/fa";
+import { FaBookmark } from "react-icons/fa";
 
 const PromptCard = ({ data, handleTagClick, large }) => {
     const { data: session } = useSession()
@@ -14,6 +21,7 @@ const PromptCard = ({ data, handleTagClick, large }) => {
     const [like, setLike] = useState(likes.includes(session?.user.id))
     const [nlikes, setNlikes] = useState(likes.length)
     const [save, setSave] = useState(session?.user.saved.includes(_id))
+
 
     const router = useRouter();
 
@@ -90,16 +98,16 @@ const PromptCard = ({ data, handleTagClick, large }) => {
                         <p className="text-xs">{creator.email}</p>
                     </div>
                 </div>
-                {copy ? <i class="fa-solid fa-check copy_button bg-green-500"></i> : <i className="fa-regular fa-copy copy_button hover:border-black" onClick={handleCopy}></i>}
+                {copy ? <span class="copy_button bg-green-500"><TiTick /></span> : <span className="copy_button hover:border-black" onClick={handleCopy}><FaRegCopy /></span>}
             </div>
             <div className="text-justify text-sm leading-6">{prompt.slice(0, large ? prompt.length : 150)}{large ? "" : <Link href={`/prompt/${_id}`} className='font-bold'>... Read More</Link>}</div>
             <div className="flex text-left text-sm gap-2 mt-2 flex-wrap">
                 {tag.split("#").slice(1,).map(ele => <p key={ele} className={`p-1 px-2 flex justify-center items-center text-center border-2 border-white rounded-lg cursor-pointer hover:border-gray-500 ${large ? "" : "flex-1"}`} onClick={() => handleTagClick(ele)}>#{ele}</p>)}
             </div>
             <div className={`flex ${large ? 'flex-start' : "justify-between"} gap-3`}>
-                <div className={`flex justify-center items-center gap-2 border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500 `} onClick={handleLikeClick}><i className={`fa-${like ? "solid" : "regular"} fa-heart`} style={{ color: "#ff0000" }}></i><p>{nlikes}</p></div>
-                <div className={`flex justify-center items-center border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500`} onClick={handleShareClick}><i className="fa-solid fa-share-nodes"></i></div>
-                <div className={`flex justify-center items-center border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500`} onClick={handleSaveClick}><i className={`fa-${save ? "solid" : "regular"} fa-bookmark`}></i></div>
+                <div className={`flex justify-center items-center gap-2 border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500 `} onClick={handleLikeClick}><span className="text-red-600">{!like ? <FaRegHeart /> : <FaHeart />}</span><p>{nlikes}</p></div>
+                <div className={`flex justify-center items-center border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500`} onClick={handleShareClick}><span className=""><FiShare2 /></span></div>
+                <div className={`flex justify-center items-center border-2 ${large ? "w-32" : "flex-1"} border-white rounded-lg cursor-pointer py-[4px] hover:border-gray-500`} onClick={handleSaveClick}><span className={``}>{save ? <FaBookmark /> : <FaRegBookmark />}</span></div>
             </div>
             {
                 session?.user.id === creator._id && pathname === '/profile' ? <div className=" flex justify-between gap-4">

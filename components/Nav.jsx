@@ -4,6 +4,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react'
+import { RiHome4Line } from "react-icons/ri";
+import { PiSignInFill } from "react-icons/pi";
+import { PiSignOutFill } from "react-icons/pi";
+import { IoCreateOutline } from "react-icons/io5";
 
 const Nav = () => {
     const { data: session } = useSession()
@@ -28,14 +32,16 @@ const Nav = () => {
 
             {/* Desktop-Navigation */}
             <div className="hidden sm:flex gap-3 items-center">
+                <Link className='button_red flex items-center gap-2' href={"/"}><RiHome4Line />Home</Link>
                 {session?.user ?
                     <>
-                        <Link href={"/create-post"} className='button_red'>Create New Post</Link>
-                        <button onClick={() => { signOut() }} className='button_red'>SignOut</button>
+
+                        <Link href={"/create-post"} className='button_red flex gap-2 items-center'><IoCreateOutline />Create New Post</Link>
+                        <button onClick={() => { signOut() }} className='button_red flex gap-2 items-center'><PiSignOutFill />SignOut</button>
                         <Link href={"/profile"}><Image src={session.user.image} height={"38"} width={"38"} alt="profile_img" className='rounded-[12px] border-[2px] border-black' /></Link>
                     </>
                     : <>
-                        <Link className='button_red' href={"/"}>Home</Link>
+
 
                         {providers &&
                             Object.values(providers).map((provider) => (
@@ -45,9 +51,9 @@ const Nav = () => {
                                     onClick={() => {
                                         signIn(provider.id);
                                     }}
-                                    className='button_red'
+                                    className='button_red flex gap-2 items-center'
                                 >
-                                    Sign in with {provider.name}
+                                    <PiSignInFill />Sign in with {provider.name}
                                 </button>
                             ))}
                     </>}

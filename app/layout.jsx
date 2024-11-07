@@ -36,7 +36,6 @@ const RootLayout = ({ children }) => {
                     theme="colored"
                     transition={Bounce}
                 />
-                <script src="https://kit.fontawesome.com/3874570f12.js" crossOrigin="anonymous"></script>
             </body>
         </html>
     )

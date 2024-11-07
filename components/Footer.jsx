@@ -1,5 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
+import { FaGitSquare } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
     return (
@@ -9,8 +11,8 @@ const Footer = () => {
                     Prompt Hub
                 </Link>
                 <div className='flex gap-4 place-content-center mt-2 sm:mt-0'>
-                    <Link href="https://github.com/GuruDarshan57" target="_blank"><i className="fa-brands fa-square-git text-2xl cursor-pointer"  ></i></Link>
-                    <Link href="https://www.linkedin.com/in/gurudarshan-l-772a1b25b/" target="_blank"><i className="fa-brands fa-linkedin text-2xl cursor-pointer"></i></Link>
+                    <Link href="https://github.com/GuruDarshan57" target="_blank"><span className="text-2xl cursor-pointer"  ><FaGitSquare /></span></Link>
+                    <Link href="https://www.linkedin.com/in/gurudarshan-l-772a1b25b/" target="_blank"><span className="text-2xl cursor-pointer"><FaLinkedin /></span></Link>
                 </div>
                 <div className='flex mt-2 sm:mt-0 tracking-wider font-medium place-content-center'>
                     Copyright © {new Date().toString().slice(10, 15)} GuruDarshan
