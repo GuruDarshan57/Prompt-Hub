@@ -8,6 +8,8 @@ import { RiHome4Line } from "react-icons/ri";
 import { PiSignInFill } from "react-icons/pi";
 import { PiSignOutFill } from "react-icons/pi";
 import { IoCreateOutline } from "react-icons/io5";
+import { RxCross2 } from "react-icons/rx";
+import { HiMiniBars3 } from "react-icons/hi2";
 
 const Nav = () => {
     const { data: session } = useSession()
@@ -62,13 +64,12 @@ const Nav = () => {
             {/* Mobile-Navigation */}
             <div className="flex flex-col sm:hidden gap-3 relative w-full">
 
-                <div className='flex justify-between'>
+                <div className='flex justify-between items-center'>
                     <Link href={"/"} className='flex items-center gap-[10px]'>
                         <Image src={"/assets/images/logo.png"} width={"40"} height={"40"} alt='Prompt Hub' className='logo_animation'></Image>
                         <p className='text-xl font-bold font-pacifico tracking-[4px'>Prompt Hub</p>
                     </Link>
-                    {toggleNav ? "" : <i className="fa-solid fa-bars text-2xl place-content-center" onClick={() => setToggleNav((e) => !e)}></i>}
-                    {toggleNav ? <i className="fa-solid fa-xmark text-2xl place-content-center" onClick={() => setToggleNav((e) => !e)}></i> : ""}
+                    {toggleNav ? <RxCross2 className='size-7' onClick={() => setToggleNav(false)} /> : <HiMiniBars3 className='size-7' onClick={() => setToggleNav(true)} />}
                 </div>
                 {toggleNav ? <div className='flex flex-col w-full  gap-3 absolute top-14 z-10 text-center p-4 rounded-2xl glassmorphism border-2 border-white'>
                     {session?.user ? <><Link href={"/"} className='button_red' >Home</Link>
