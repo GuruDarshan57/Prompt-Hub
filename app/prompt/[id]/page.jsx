@@ -6,6 +6,8 @@ import { useSession } from 'next-auth/react'
 import { toast } from 'react-toastify'
 import PromptCard from '@components/PromptCard'
 import Loader from '@components/Loader'
+import { FaTelegramPlane } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 
 const page = ({ params }) => {
     const { data: session } = useSession()
@@ -58,9 +60,9 @@ const page = ({ params }) => {
                 <div className="w-full flex flex-col gap-2 p-5 border-2 border-white rounded-lg glassmorphism">
                     <div className="">Add Comment</div>
                     <form className='flex items-center justify-center gap-2 sm:gap-4 mb-5'>
-                        {session?.user ? <Image src={session?.user?.image} width={35} height={35} className='rounded-full' alt='profile_img' /> : <i class="fa-solid fa-user border-2 border-black p-2 rounded-full"></i>}
+                        {session?.user ? <Image src={session?.user?.image} width={35} height={35} className='rounded-full' alt='profile_img' /> : < FaUserCircle className='size-6' />}
                         <input type="text" className='flex-1 rounded-lg outline-none px-3 h-8' placeholder='Add a Comment . . .' value={comment} onChange={(e) => { setComment(e.target.value) }} />
-                        <button type='submit' className='border-2 border-white px-4 hover:border-gray-500 h-8 rounded-lg' onClick={handleAddComment}><i class="fa-regular fa-paper-plane"></i></button>
+                        <button type='submit' className='border-2 border-white px-4 hover:border-gray-500 h-8 rounded-lg' onClick={handleAddComment}><FaTelegramPlane /></button>
                     </form>
                     <div className="flex w-full justify-between gap-3">
                         <div>Comments [{post.comments.length}]</div>
